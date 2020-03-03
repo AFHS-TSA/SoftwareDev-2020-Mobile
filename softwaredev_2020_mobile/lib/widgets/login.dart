@@ -82,26 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Login",
-              style: TextStyle(
-                fontSize: 20,
-              ),),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  onPressed: () => {},
-                  color: Colors.blue,
-                  child: Text("Enter"),
-                  textColor: Colors.white,
-                ),
+              TextField(),
+              TextField(),
+              FlatButton(
+                onPressed: () => {},
+                color: Colors.blue,
+                child: Text("Enter"),
               ),
             ],
           ),

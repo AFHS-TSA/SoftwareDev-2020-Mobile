@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/compcard.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,7 +46,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  var comps = <Widget>[];
 
+
+  void _showDialog() {
+    TextEditingController tfc = new TextEditingController();
+    TextEditingController descc = new TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          TextField tf = new TextField(
+            controller: tfc,
+            decoration: new InputDecoration(
+                hintText: "Competition Title",
+                hintStyle: new TextStyle(
+                  fontSize: 20,
+                )
+            ),
+          );
+          TextField desc = new TextField(
+            controller: descc,
+            decoration: new InputDecoration(
+                hintText: "Description",
+                hintStyle: new TextStyle(
+                  fontSize: 16,
+                )
+            ),
+          );
+          return AlertDialog(
+            title: tf,
+            content: desc,
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("Add"),
+                onPressed: () {
+                  setState(() {
+                    comps.add(CompCard(tfc.text, descc.text));
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,31 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
             // axis because Columns are vertical (the cross axis would be
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Login",
-              style: TextStyle(
-                fontSize: 20,
-              ),),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  onPressed: () => {},
-                  color: Colors.blue,
-                  child: Text("Enter"),
-                  textColor: Colors.white,
-                ),
-              ),
-            ],
+            children: comps,
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showDialog,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
