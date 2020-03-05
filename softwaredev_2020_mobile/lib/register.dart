@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'widgets/compcard.dart';
+import 'package:softwaredev_2020_mobile/competitions.dart';
+import 'main.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Register());
 
-class MyApp extends StatelessWidget {
+class Register extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,13 +22,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Competitions'),
+      home: Reg(title: 'Competitions'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Reg extends StatefulWidget {
+  Reg({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -41,63 +42,11 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _RegState createState() => _RegState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RegState extends State<Reg> {
 
-  var comps = <Widget>[];
-
-
-  void _showDialog() {
-    TextEditingController tfc = new TextEditingController();
-    TextEditingController descc = new TextEditingController();
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          TextField tf = new TextField(
-            controller: tfc,
-            decoration: new InputDecoration(
-                hintText: "Competition Title",
-                hintStyle: new TextStyle(
-                  fontSize: 20,
-                )
-            ),
-          );
-          TextField desc = new TextField(
-            controller: descc,
-            decoration: new InputDecoration(
-                hintText: "Description",
-                hintStyle: new TextStyle(
-                  fontSize: 16,
-                )
-            ),
-          );
-          return AlertDialog(
-            title: tf,
-            content: desc,
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              new FlatButton(
-                child: new Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("Add"),
-                onPressed: () {
-                  setState(() {
-                    comps.add(CompCard(tfc.text, descc.text));
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        }
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,14 +82,39 @@ class _MyHomePageState extends State<MyHomePage> {
             // axis because Columns are vertical (the cross axis would be
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.center,
-            children: comps,
+            children: <Widget>[
+              Text("Register",
+                style: TextStyle(
+                  fontSize: 20,
+                ),),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
+                child: TextField(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
+                child: TextField(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
+                child: TextField(),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 8.0),
+                child: TextField(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FlatButton(
+                  onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => new MyApp()))},
+                  color: Colors.blue,
+                  child: Text("Register"),
+                  textColor: Colors.white,
+                ),
+              ),
+            ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showDialog,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
